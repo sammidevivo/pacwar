@@ -148,16 +148,7 @@ def train_padawans():
     NUM_MUTATIONS = 3         # Mutations per variant
     NUM_PADAWANS_PER_BASE = 3 # How many times to evolve from each base
 
-    base_genomes = {
-        "Random 1": random_genome(),
-        "Random 2": random_genome(),
-        "Random 3": random_genome(),
-        "Random 4": random_genome(),
-        "Random 5": random_genome(),
-        "Random 6": random_genome(),
-    }
-    
-    print(f"training padawans: rounds={NUM_ROUNDS} variants={NUM_VARIANTS} mut={NUM_MUTATIONS} bases={len(base_genomes)}")
+    print(f"training padawans: rounds={NUM_ROUNDS} variants={NUM_VARIANTS} mut={NUM_MUTATIONS}")
 
     all_padawans = []
 

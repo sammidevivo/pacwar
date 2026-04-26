@@ -32,7 +32,6 @@ def test(genome, num_random=10000):
     print(f"Randoms: {num_random}")
     print()
 
-    # ── Known opponents ───────────────────────────────────────────────────────
     wins, losses, ties = [], [], []
     total_pts = 0
 
@@ -50,7 +49,6 @@ def test(genome, num_random=10000):
     print(f"KNOWN  ({n:4d}):  {len(wins)}W  {len(losses)}L  {len(ties)}T  "
           f"({wr:.1f}% win rate)   {total_pts}/{n*20} pts  avg {avg:.2f}/20")
 
-    # ── Random opponents ──────────────────────────────────────────────────────
     rw = rl = rt = rpts = 0
     random_losses = []
 
@@ -70,7 +68,6 @@ def test(genome, num_random=10000):
     print(f"RANDOM ({rn:4d}):  {rw}W  {rl}L  {rt}T  "
           f"({rwr:.1f}% win rate)   {rpts}/{rn*20} pts  avg {ravg:.2f}/20")
 
-    # ── Detail: losses vs known ───────────────────────────────────────────────
     if losses:
         print(f"\n{'='*70}")
         print(f"LOSSES VS KNOWN  ({len(losses)})")
@@ -79,7 +76,6 @@ def test(genome, num_random=10000):
             print(f"  {r['name']:22s}  score={r['score']:2d}/20  "
                   f"rounds={r['rounds']:3d}  you={r['c1']:3d}  them={r['c2']:3d}")
 
-    # ── Detail: wins vs known ─────────────────────────────────────────────────
     if wins:
         print(f"\n{'='*70}")
         print(f"WINS VS KNOWN  ({len(wins)})")
@@ -88,7 +84,6 @@ def test(genome, num_random=10000):
             print(f"  {r['name']:22s}  score={r['score']:2d}/20  "
                   f"rounds={r['rounds']:3d}  you={r['c1']:3d}  them={r['c2']:3d}")
 
-    # ── Random genomes that beat you ──────────────────────────────────────────
     if random_losses:
         print(f"\n{'='*70}")
         print(f"RANDOM GENOMES THAT BEAT YOU  ({len(random_losses)})  — showing worst 20")

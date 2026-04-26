@@ -77,7 +77,6 @@ def test_genome(test_genome, genome_bank, num_random_tests=100):
     print("=" * 70)
     print()
     
-    # ========== TEST AGAINST GENOME BANK ==========
     print("Testing against known genomes...")
     
     bank_results = []
@@ -116,7 +115,6 @@ def test_genome(test_genome, genome_bank, num_random_tests=100):
         if idx % 10 == 0:
             print(f"  Progress: {idx}/{len(genome_bank)} battles complete...")
     
-    # ========== TEST AGAINST RANDOM GENOMES ==========
     print(f"Testing against {num_random_tests} random genomes...")
     
     random_wins = 0
@@ -124,7 +122,7 @@ def test_genome(test_genome, genome_bank, num_random_tests=100):
     random_ties = 0
     random_total_points = 0
     random_max_points = num_random_tests * 20
-    random_killer_genomes = []  # Track random genomes that beat us
+    random_killer_genomes = []
     
     for i in range(num_random_tests):
         random_opp = random_genome()
@@ -136,7 +134,6 @@ def test_genome(test_genome, genome_bank, num_random_tests=100):
             random_wins += 1
         elif c2 > c1:
             random_losses += 1
-            # Store the random genome that beat us
             random_killer_genomes.append({
                 'genome': random_opp,
                 'score': score,
@@ -150,12 +147,10 @@ def test_genome(test_genome, genome_bank, num_random_tests=100):
         if (i + 1) % 25 == 0:
             print(f"  Progress: {i + 1}/{num_random_tests} random battles complete...")
     
-    # ========== DISPLAY RESULTS ==========
     print("\n" + "=" * 70)
     print("RESULTS SUMMARY")
     print("=" * 70)
     
-    # Known genomes summary
     total_battles = len(wins) + len(losses) + len(ties)
     win_rate = (len(wins) / total_battles * 100) if total_battles > 0 else 0
     avg_points = total_points / total_battles if total_battles > 0 else 0
@@ -164,7 +159,6 @@ def test_genome(test_genome, genome_bank, num_random_tests=100):
     print(f"  Record: {len(wins)}-{len(losses)}-{len(ties)} (Win Rate: {win_rate:.1f}%)")
     print(f"  Total Points: {total_points}/{max_possible_points} (Avg: {avg_points:.2f}/20)")
     
-    # Random genomes summary
     random_total = random_wins + random_losses + random_ties
     random_win_rate = (random_wins / random_total * 100) if random_total > 0 else 0
     random_avg_points = random_total_points / random_total if random_total > 0 else 0
@@ -173,12 +167,9 @@ def test_genome(test_genome, genome_bank, num_random_tests=100):
     print(f"  Record: {random_wins}-{random_losses}-{random_ties} (Win Rate: {random_win_rate:.1f}%)")
     print(f"  Total Points: {random_total_points}/{random_max_points} (Avg: {random_avg_points:.2f}/20)")
     
-    # ========== DETAILED KNOWN GENOME RESULTS ==========
-    
-    # Victories
     if wins:
         print(f"\n{'='*70}")
-        print(f"✓ VICTORIES ({len(wins)}) - Sorted by Score")
+        print(f"VICTORIES ({len(wins)}) - Sorted by Score")
         print(f"{'='*70}")
         wins.sort(key=lambda x: (-x['score'], x['rounds']))  # Best scores first, fastest first
         
@@ -187,12 +178,11 @@ def test_genome(test_genome, genome_bank, num_random_tests=100):
                   f"Rounds={result['rounds']:3d}, "
                   f"Your={result['your_count']:3d}, Theirs={result['their_count']:3d}")
     
-    # Losses (MOST IMPORTANT - what you need to fix!)
     if losses:
         print(f"\n{'='*70}")
-        print(f"✗ LOSSES ({len(losses)}) - GENOMES THAT BEAT YOU")
+        print(f"LOSSES ({len(losses)})")
         print(f"{'='*70}")
-        losses.sort(key=lambda x: (x['score'], -x['rounds']))  # Worst losses first
+        losses.sort(key=lambda x: (x['score'], -x['rounds']))
         
         for result in losses:
             print(f"Opponent #{result['index']:3d}: Score={result['score']:2d}/20, "
@@ -200,7 +190,6 @@ def test_genome(test_genome, genome_bank, num_random_tests=100):
                   f"Your={result['your_count']:3d}, Theirs={result['their_count']:3d}")
             print(f"  Genome: {''.join(str(g) for g in result['genome'])}")
     
-    # Ties
     if ties:
         print(f"\n{'='*70}")
         print(f"= TIES ({len(ties)})")
@@ -211,12 +200,10 @@ def test_genome(test_genome, genome_bank, num_random_tests=100):
                   f"Rounds={result['rounds']:3d}, "
                   f"Your={result['your_count']:3d}, Theirs={result['their_count']:3d}")
     
-    # ========== RANDOM GENOME LOSSES ==========
     if random_killer_genomes:
         print(f"\n{'='*70}")
-        print(f"⚠️  RANDOM GENOMES THAT BEAT YOU ({len(random_killer_genomes)})")
+        print(f"RANDOM LOSSES ({len(random_killer_genomes)})")
         print(f"{'='*70}")
-        # Sort by worst losses first
         random_killer_genomes.sort(key=lambda x: (x['score'], -x['rounds']))
         
         for idx, result in enumerate(random_killer_genomes, 1):
@@ -225,7 +212,6 @@ def test_genome(test_genome, genome_bank, num_random_tests=100):
                   f"Your={result['your_count']:3d}, Theirs={result['their_count']:3d}")
             print(f"  Genome: {''.join(str(g) for g in result['genome'])}")
     
-    # ========== SCORE BREAKDOWN ==========
     print(f"\n{'='*70}")
     print("SCORE BREAKDOWN (Known Genomes)")
     print(f"{'='*70}")
@@ -296,21 +282,14 @@ def test_genome(test_genome, genome_bank, num_random_tests=100):
 def main():
     """Test a genome against a comprehensive bank"""
     
-    # ========== YOUR GENOME TO TEST ==========
-    # Replace this with the genome you want to test
     TEST_GENOME = list(map(int, "01000000010100000033123323223213223233313313323311"))
-    
-    # ========== GENOME BANK ==========
-    # Just a list of genomes - no names needed!
-    # Add as many as you want, in any order
+
     GENOME_BANK = [
-        # Baselines (always test these)
         [0] * 50,
         [1] * 50,
         [2] * 50,
         [3] * 50,
-        
-        # Known good genomes from your class
+
         list(map(int, "00020000101022203332321321323321321321333101102131")), # Priya
         list(map(int, "00020010101022033033321321323121321121331101103100")), # Priya II
         list(map(int, "00020010101022033033321321323121321121331101303100")), # Priya III
@@ -325,8 +304,6 @@ def main():
         list(map(int, "00110000111022213001111111111113122122120331113331")), # Leslie
         list(map(int, "13322001312212201133110232233131231222010220310123")), # Jessica
         list(map(int, "33322003110122223033233232233232231232000210102103")), # Fran
-        
-        # Your 32 padawans
         list(map(int, "10111311011111111111111111111111213111121111121111")),
         list(map(int, "30333301333330333303303333333333233020330333333000")),
         list(map(int, "11111130111110111111300111111011131233213111211111")),
@@ -358,8 +335,7 @@ def main():
         list(map(int, "30333320033330133033333333333333320010233333221130")),
         list(map(int, "10111330131110111311131111111110201111311111003111")),
         list(map(int, "10112200101111311101111111111122111110131111101311")),
-        
-        # Add more genomes here - just paste the genome strings!
+
         list(map(int, "30021300131121223031213131311312132311333130003330")),
         list(map(int, "03103200120113003100312121323022022323020310013212")),
         list(map(int, "10321310130102223100332312133332113302303110130313")),
@@ -499,7 +475,6 @@ def main():
 
     ]
     
-    # Run the test
     results = test_genome(TEST_GENOME, GENOME_BANK, num_random_tests=0)
     
     return results

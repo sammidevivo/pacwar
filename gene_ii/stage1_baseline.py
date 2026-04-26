@@ -62,17 +62,8 @@ def print_breakdown(total, breakdown):
 
 
 def main():
-    print("=" * 65)
-    print("STAGE 1 — BASELINE FILTER (All 1s & All 3s)")
-    print("=" * 65)
-    print(f"Target survivors : {TARGET_SURVIVORS}")
-    print(f"Pass threshold   : {PASS_THRESHOLD}/40")
-    print(f"Retry threshold  : {RETRY_THRESHOLD}/40  (keep trying if score >= this)")
-    print(f"Max retry passes : {MAX_RETRY_PASSES}")
-    print(f"Hill-climb rounds: {HILL_CLIMB_ROUNDS} per pass")
-    print(f"Variants/round   : {VARIANTS_PER_ROUND}")
-    print(f"Saves after each survivor — Ctrl+C safe!")
-    print("=" * 65)
+    print(f"Stage 1 — Baseline Filter (All 1s & All 3s)")
+    print(f"target={TARGET_SURVIVORS} pass={PASS_THRESHOLD}/40 retry={RETRY_THRESHOLD}/40 rounds={HILL_CLIMB_ROUNDS} variants={VARIANTS_PER_ROUND}")
 
     survivors = []
     attempt = 0
@@ -136,7 +127,6 @@ def main():
                 'breakdown_stage1': breakdown,
                 'candidate_num': attempt,
             })
-            # Save immediately after every survivor
             save_results("stage1_results.json", survivors)
             print(f"  Saved {len(survivors)} survivor(s) to stage1_results.json")
         else:

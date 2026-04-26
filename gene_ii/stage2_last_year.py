@@ -59,7 +59,6 @@ LAST_YEAR_GENOMES = {
     "coolgeen":       "31321203032321230023222202333221321210301131121211",
 }
 
-# Also keep baseline pressure so Stage-1 gains aren't regressed
 BASELINE_OPPONENTS = [
     [1] * 50,
     [3] * 50,
@@ -89,9 +88,7 @@ def detailed_report(genome, opponents, names):
 
 
 def main():
-    print("=" * 65)
-    print("STAGE 2 — LAST YEAR'S CHECKPOINT GENOMES")
-    print("=" * 65)
+    print("Stage 2 — Last Year's Checkpoint Genomes")
 
     try:
         stage1 = load_results("stage1_results.json")
@@ -103,11 +100,7 @@ def main():
     opp_names = list(LAST_YEAR_GENOMES.keys()) + ["All 1s", "All 3s"]
     max_score = len(opponents) * 20
 
-    print(f"Loaded {len(stage1)} Stage-1 survivors")
-    print(f"Opponents      : {len(opponents)}  (29 last-year + 2 baselines)")
-    print(f"Max score      : {max_score}")
-    print(f"Hill-climb     : {HILL_CLIMB_ROUNDS} rounds × {VARIANTS_PER_ROUND} variants")
-    print("=" * 65)
+    print(f"Loaded {len(stage1)} Stage-1 survivors | {len(opponents)} opponents (29 last-year + 2 baselines) | max={max_score} | {HILL_CLIMB_ROUNDS} rounds × {VARIANTS_PER_ROUND} variants")
 
     results = []
     t0 = time.time()

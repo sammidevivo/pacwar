@@ -67,13 +67,8 @@ def round_robin_tournament(padawans):
     names = list(padawans.keys())
     num_padawans = len(names)
     
-    print("=" * 70)
-    print("PADAWAN ROUND-ROBIN TOURNAMENT")
-    print("=" * 70)
-    print(f"Competitors: {num_padawans}")
-    print(f"Total battles: {num_padawans * (num_padawans - 1) // 2}")
-    print("=" * 70)
-    print()
+    print(f"round-robin: {num_padawans} competitors, {num_padawans * (num_padawans - 1) // 2} battles")
+
     
     # Initialize records
     records = {name: {
@@ -148,9 +143,7 @@ def round_robin_tournament(padawans):
 def display_rankings(rankings):
     """Display the tournament rankings"""
     
-    print("=" * 70)
     print("FINAL RANKINGS")
-    print("=" * 70)
     print()
     
     max_points = (len(rankings) - 1) * 20  # Maximum possible points

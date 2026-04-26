@@ -235,7 +235,7 @@ def main():
 
     save_results("stage3_results.json", results[:TOP_N_TO_SAVE])
 
-    print(f"\n🏆  BEST GENOME:")
+    print(f"\nBest genome:")
     print(f"    {genome_to_str(results[0]['genome'])}")
     print(f"    Score: {results[0]['score_stage3']}/{max_score}  "
           f"W-L-T: {results[0]['wins']}-{results[0]['losses']}-{results[0]['ties']}")

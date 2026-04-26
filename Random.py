@@ -50,7 +50,6 @@ def round_robin_tournament(genomes):
             if battle_count % 100 == 0:
                 print(f"Battles completed: {battle_count}/{total_battles}")
     
-    # Sort by wins (descending), then by losses (ascending)
     records.sort(key=lambda x: (x[1], -x[2]), reverse=True)
     
     return records
@@ -65,11 +64,9 @@ def main():
     print("=" * 60)
     print()
     
-    # Generate random genomes
     print(f"Generating {NUM_RANDOM_GENOMES} random genomes...")
     genomes = [random_genome() for _ in range(NUM_RANDOM_GENOMES)]
-    
-    # Add some baseline strategies for comparison
+
 
     winner = "31030312111111223210033233023123121023230333210213"
     genomes.append(list(map(int, winner)))
@@ -83,10 +80,8 @@ def main():
     print(f"Total genomes (including 4 baselines): {len(genomes)}")
     print()
     
-    # Run tournament
     results = round_robin_tournament(genomes)
-    
-    # Display results
+
     print()
     print("=" * 60)
     print("TOURNAMENT RESULTS (Top 10)")
@@ -101,7 +96,6 @@ def main():
         print(f"          Genome: {genome}")
         print()
     
-    # Get the best genome
     best_genome = results[0][0]
     
     print("=" * 60)
@@ -110,7 +104,6 @@ def main():
     print("=" * 60)
     print()
     
-    # Test best genome against baselines
     baselines = {
         "All 0s": [0] * 50,
         "All 1s": [1] * 50,

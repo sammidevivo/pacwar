@@ -62,9 +62,7 @@ def evolve():
     best_ever_genome = None
     best_ever_score = -1
     
-    print("Starting evolution...")
-    print(f"Population: {POPULATION_SIZE}, Generations: {GENERATIONS}")
-    print(f"Elite size: {ELITE_SIZE}, Mutation rate: {MUTATION_RATE}")
+    print(f"Starting evolution: pop={POPULATION_SIZE}, gen={GENERATIONS}, elite={ELITE_SIZE}, mut={MUTATION_RATE}")
     print("-" * 60)
     
     for gen in range(GENERATIONS):
@@ -79,27 +77,22 @@ def evolve():
             score = fitness(genome, opponents)
             scores.append(score)
         
-        # Sort population by fitness
         ranked = sorted(zip(population, scores), key=lambda x: x[1], reverse=True)
         population_sorted = [genome for genome, score in ranked]
         scores_sorted = [score for genome, score in ranked]
         
-        # Track best ever
         if scores_sorted[0] > best_ever_score:
             best_ever_score = scores_sorted[0]
             print("new best!")
             best_ever_genome = population_sorted[0][:]
         
-        # Print progress
         avg_score = sum(scores) / len(scores)
         print(f"Gen {gen:3d}: Best={scores_sorted[0]:.2f}/{TOURNAMENT_SIZE}, "
               f"Avg={avg_score:.2f}, "
               f"Worst={scores_sorted[-1]:.2f}")
         
-        # Selection: Keep elite
         elite = population_sorted[:ELITE_SIZE]
-        
-        # Crossover and mutation: Create new generation
+
         children = []
         while len(children) < POPULATION_SIZE - ELITE_SIZE:
             # Select two parents from elite (could also do tournament selection)
@@ -108,14 +101,12 @@ def evolve():
             child = mutate(child, MUTATION_RATE)
             children.append(child)
         
-        # New population = elite + children
         population = elite + children
     
     print("-" * 60)
     print("Evolution complete!")
     print()
     
-    # Final evaluation: best genome vs all baseline strategies
     best_genome = best_ever_genome
     
     print("=" * 60)
@@ -124,7 +115,6 @@ def evolve():
     print("=" * 60)
     print()
     
-    # Test against known strategies
     baselines = {
         "All 0s": [0] * 50,
         "All 1s": [1] * 50,

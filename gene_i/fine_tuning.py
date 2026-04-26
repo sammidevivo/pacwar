@@ -195,7 +195,6 @@ def hill_climb_with_diversity():
     Track random genomes that perform well as potential "killer genes".
     """
     
-    # ========== PARAMETERS ==========
     # BASE_GENOME = [1,1,1,1] + [2]*16 + [1]*4 + [1]*4 + [3]*16 + [3]*6
     BASE_GENOME = list(map(int, "00000000011022223333332133133233233233103103333103"))
 
@@ -425,20 +424,13 @@ def hill_climb_with_diversity():
         # [1,3]*25,
     ]
     
-    # ========== INITIALIZATION ==========
-    print(f"Base genome: {BASE_GENOME}")
-    print(f"Variants per round: {NUM_VARIANTS_PER_ROUND}")
-    print(f"Mutations per variant: {NUM_MUTATIONS}")
-    print(f"Random opponents: {NUM_RANDOM_OPPONENTS}")
-    print(f"Rounds: {NUM_ROUNDS}")
-    print("=" * 70)
-    print()
+    print(f"hill-climb: rounds={NUM_ROUNDS} variants={NUM_VARIANTS_PER_ROUND} mut={NUM_MUTATIONS} randoms={NUM_RANDOM_OPPONENTS}")
+
     
     current_best = BASE_GENOME[:]
     all_time_best = BASE_GENOME[:]
     all_time_best_score = 0
     
-    # Track killer random genomes
     killer_randoms = []
    
     for round_num in range(NUM_ROUNDS):
@@ -446,23 +438,17 @@ def hill_climb_with_diversity():
         print(f"ROUND {round_num + 1}/{NUM_ROUNDS}")
         print(f"{'='*70}")
         
-        # Generate variants by mutating current best
-        variants = [mutate_genome(current_best, NUM_MUTATIONS) 
+        variants = [mutate_genome(current_best, NUM_MUTATIONS)
                    for _ in range(NUM_VARIANTS_PER_ROUND)]
         variants.append(current_best)  # Include current best
         
-        # Generate random opponents
         random_opponents = [random_genome() for _ in range(NUM_RANDOM_OPPONENTS)]
         
-        # Build test suite
-        # Variants test against each other, randoms, strategies, and baselines
         print(f"Testing {len(variants)} variants...")
         
         results = []
-        
-        # Test each variant
+
         for i, variant in enumerate(variants):
-            # Create test suite (exclude self from variants)
             other_variants = variants[:i] + variants[i+1:]
             
             test_suite = {
@@ -478,7 +464,6 @@ def hill_climb_with_diversity():
             if (i + 1) % 10 == 0:
                 print(f"  Tested {i + 1}/{len(variants)} variants...")
         
-        # Also test random opponents to see if any are killer genes
         print(f"Testing random opponents for killer genes...")
         for i, random_opp in enumerate(random_opponents):
             test_suite = {
@@ -496,22 +481,8 @@ def hill_climb_with_diversity():
                 print(f"      KILLER RANDOM FOUND! Score: {score:.2f}")
                 killer_randoms.append((random_opp, score, category_scores))
         
-        # Sort results by score
         results.sort(key=lambda x: x[1], reverse=True)
         
-        # # Display top 5
-        # print(f"\nTop 5 variants this round:")
-        # print("-" * 70)
-        # for rank, (genome, score, cat_scores) in enumerate(results[:5], 1):
-        #     is_current = "← CURRENT" if genome == current_best else ""
-        #     print(f"Rank {rank}: Score={score:.2f} {is_current}")
-        #     print(f"  vs Variants: {cat_scores.get('variants', 0):.1f}/{len(variants)-1}")
-        #     print(f"  vs Randoms:  {cat_scores.get('randoms', 0):.1f}/{NUM_RANDOM_OPPONENTS}")
-        #     print(f"  vs Strats:   {cat_scores.get('strategies', 0):.1f}/{len(KNOWN_STRATEGIES)}")
-        #     print(f"  vs Baselines:{cat_scores.get('baselines', 0):.1f}/{len(BASELINES)*2} (2x weight)")
-        #     print()
-        
-        # Update current best for next round
         round_best = results[0][0]
         round_best_score = results[0][1]
         
@@ -523,7 +494,6 @@ def hill_climb_with_diversity():
         current_best = round_best
         print(f"Current best score: {round_best_score:.2f}")
     
-    # ========== FINAL RESULTS ==========
     print("\n" + "=" * 70)
     print("FINAL RESULTS")
     print("=" * 70)
@@ -656,7 +626,6 @@ def hill_climb_with_diversity():
         "Ron 2.0": list(map(int, "01000100010001000103123323233213223333313313313313")),
     }
     
-    # Test final best against baselines
     print("Final testing against baselines:")
     print("-" * 70)
     baseline_names = ["All 0s", "All 1s", "All 2s", "All 3s"]
@@ -690,7 +659,7 @@ def hill_climb_with_diversity():
     
     # Display wins
     if wins:
-        print(f"\n✓ VICTORIES ({len(wins)}):")
+        print(f"\nVICTORIES ({len(wins)}):")
         print("-" * 70)
         wins.sort(key=lambda x: x[4], reverse=True)  # Sort by score
         for name, c1, c2, rounds, score in wins:
@@ -698,7 +667,7 @@ def hill_climb_with_diversity():
     
     # Display losses
     if losses:
-        print(f"\n✗ DEFEATS ({len(losses)}):")
+        print(f"\nDEFEATS ({len(losses)}):")
         print("-" * 70)
         losses.sort(key=lambda x: x[4])  # Sort by score (lowest first = worst losses)
         for name, c1, c2, rounds, score in losses:

@@ -143,13 +143,11 @@ def train_padawans():
     Goal: Find 50 genomes that can defeat all_0s, all_1s, all_2s, all_3s.
     """
     
-    # ========== PARAMETERS ==========
     NUM_ROUNDS = 100           # Rounds of evolution per base
     NUM_VARIANTS = 30         # Variants to test per round
     NUM_MUTATIONS = 3         # Mutations per variant
     NUM_PADAWANS_PER_BASE = 3 # How many times to evolve from each base
-    
-    # ========== BASE GENOMES ==========
+
     base_genomes = {
         "Random 1": random_genome(),
         "Random 2": random_genome(),
@@ -159,18 +157,8 @@ def train_padawans():
         "Random 6": random_genome(),
     }
     
-    print("=" * 70)
-    print("PADAWAN TRAINING PROGRAM")
-    print("=" * 70)
-    print(f"Rounds per base: {NUM_ROUNDS}")
-    print(f"Variants per round: {NUM_VARIANTS}")
-    print(f"Mutations per variant: {NUM_MUTATIONS}")
-    print(f"Padawans per base: {NUM_PADAWANS_PER_BASE}")
-    print(f"Total base genomes: {len(base_genomes)}")
-    print(f"Total padawans to train: {len(base_genomes) * NUM_PADAWANS_PER_BASE}")
-    print("=" * 70)
-    
-    # ========== TRAIN PADAWANS ==========
+    print(f"training padawans: rounds={NUM_ROUNDS} variants={NUM_VARIANTS} mut={NUM_MUTATIONS} bases={len(base_genomes)}")
+
     all_padawans = []
 
     while len(all_padawans) < 3:
@@ -200,7 +188,6 @@ def train_padawans():
                 })       
         
     
-    # ========== FINAL RESULTS ==========
     print("\n" + "=" * 70)
     print("ALL PADAWANS - FINAL RANKINGS")
     print("=" * 70)
@@ -225,7 +212,6 @@ def train_padawans():
                   f"Rounds={stat['rounds']:3d} | "
                   f"Your={stat['your_count']:3d}, Theirs={stat['their_count']:3d}")
     
-    # ========== WINNERS (Score 80/80) ==========
     perfect_padawans = [p for p in all_padawans if p['total_score'] == 80]
     
     if perfect_padawans:
@@ -236,7 +222,6 @@ def train_padawans():
             print(f"\n{p['name']} (from {p['base']})")
             print(f"  {''.join(str(g) for g in p['genome'])}")
     
-    # ========== SUMMARY BY BASE ==========
     print("\n" + "=" * 70)
     print("SUMMARY BY BASE GENOME")
     print("=" * 70)

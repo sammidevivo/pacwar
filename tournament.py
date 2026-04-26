@@ -64,15 +64,9 @@ def round_robin_tournament(padawans):
     names = list(padawans.keys())
     num_padawans = len(names)
     
-    print("=" * 70)
-    print("PADAWAN ROUND-ROBIN TOURNAMENT")
-    print("=" * 70)
-    print(f"Competitors: {num_padawans}")
-    print(f"Total battles: {num_padawans * (num_padawans - 1) // 2}")
-    print("=" * 70)
+    print(f"PADAWAN ROUND-ROBIN TOURNAMENT: {num_padawans} competitors, {num_padawans * (num_padawans - 1) // 2} battles")
     print()
     
-    # Initialize records
     records = {name: {
         'total_points': 0,
         'wins': 0,
@@ -81,7 +75,6 @@ def round_robin_tournament(padawans):
         'battles': []  # (opponent, result, score, rounds, c1, c2)
     } for name in names}
     
-    # Run all battles
     battle_count = 0
     total_battles = num_padawans * (num_padawans - 1) // 2
     
@@ -95,7 +88,6 @@ def round_robin_tournament(padawans):
             score1, rounds, c1, c2 = score_battle(genome1, genome2)
             score2 = 20 - score1  # Opponent gets remainder of 20 points
             
-            # Determine result
             if c1 > c2:
                 result1, result2 = 'WIN', 'LOSS'
                 records[name1]['wins'] += 1
@@ -109,11 +101,9 @@ def round_robin_tournament(padawans):
                 records[name1]['ties'] += 1
                 records[name2]['ties'] += 1
             
-            # Update points
             records[name1]['total_points'] += score1
             records[name2]['total_points'] += score2
             
-            # Store battle details
             records[name1]['battles'].append((name2, result1, score1, rounds, c1, c2))
             records[name2]['battles'].append((name1, result2, score2, rounds, c2, c1))
             
@@ -124,7 +114,6 @@ def round_robin_tournament(padawans):
     print(f"All {total_battles} battles complete!")
     print()
     
-    # Create rankings
     rankings = []
     for name in names:
         rec = records[name]
@@ -137,7 +126,6 @@ def round_robin_tournament(padawans):
             rec['battles']
         ))
     
-    # Sort by total points (descending), then by wins (descending)
     rankings.sort(key=lambda x: (x[1], x[2]), reverse=True)
     
     return rankings
@@ -145,9 +133,7 @@ def round_robin_tournament(padawans):
 def display_rankings(rankings):
     """Display the tournament rankings"""
     
-    print("=" * 70)
     print("FINAL RANKINGS")
-    print("=" * 70)
     print()
     
     max_points = (len(rankings) - 1) * 20  # Maximum possible points
@@ -175,10 +161,8 @@ def display_detailed_results(rankings, top_n=5):
         print(f"Total Points: {points} | Record: {wins}-{losses}-{ties}")
         print(f"{'='*70}")
         
-        # Sort battles by score (highest first for wins, lowest first for losses)
         battles_sorted = sorted(battles, key=lambda x: (x[1] != 'WIN', -x[2], x[3]))
-        
-        # Show best wins
+
         best_wins = [b for b in battles_sorted if b[1] == 'WIN'][:5]
         if best_wins:
             print(f"\n  Best Victories:")
@@ -186,9 +170,8 @@ def display_detailed_results(rankings, top_n=5):
                 print(f"    vs {opp:8s}: Score={score:2d}/20, "
                       f"Rounds={rounds:3d}, Your={c1:3d}, Theirs={c2:3d}")
         
-        # Show worst losses
         worst_losses = [b for b in battles if b[1] == 'LOSS']
-        worst_losses.sort(key=lambda x: x[2])  # Sort by score (lowest = worst)
+        worst_losses.sort(key=lambda x: x[2])
         worst_losses = worst_losses[:5]
         
         if worst_losses:
@@ -224,14 +207,11 @@ def main():
         "S3-19": [1,0,0,2,0,0,0,0,1,1,1,1,2,0,2,0,0,0,0,3,2,3,2,2,1,2,1,1,3,1,1,2,2,1,2,3,1,2,3,1,3,3,1,0,2,0,0,3,1,1],
     }
     
-    # Run tournament
     rankings = round_robin_tournament(padawans)
-    
-    # Display results
+
     display_rankings(rankings)
     display_detailed_results(rankings, top_n=10)
-    
-    # Print top 10 genomes for easy copying
+
     print("\n" + "=" * 70)
     print("TOP 10 GENOMES (for easy copying)")
     print("=" * 70)

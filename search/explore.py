@@ -70,14 +70,6 @@ def hamming(a, b):
     return sum(x != y for x, y in zip(a, b))
 
 # ── Fitness ────────────────────────────────────────────────────────────────────
-def score_duel(rounds, mine, opp):
-    if opp == 0:
-        return 10000 - rounds * 10
-    elif mine == 0:
-        return -5000
-    else:
-        return (mine - opp) * 5 - 2000
-
 def fitness(gene, elites=None, trials=TRIALS_FAST):
     """
     Battle a random sample of opponents.
@@ -91,9 +83,9 @@ def fitness(gene, elites=None, trials=TRIALS_FAST):
 
     for opp in sampled:
         for _ in range(trials):
-            r, m, o = _PyPacwar.battle(gene, opp)
-            total  += score_duel(r, m, o)
-            if o == 0:
+            s, rounds, c1, c2 = score_battle(gene, opp)
+            total += s
+            if c2 == 0:
                 wins += 1
             battles += 1
 
@@ -192,10 +184,10 @@ def main():
 
     print("\nBattle results:")
     for name, g_str in OPPONENTS.items():
-        opp    = [int(c) for c in g_str]
-        r, m, o = _PyPacwar.battle(best_gene, opp)
-        result  = "WIN " if o == 0 else "LOSS" if m == 0 else "DRAW"
-        print(f"  {result} vs {name:<15} | rounds={r} mine={m} opp={o}")
+        opp = [int(c) for c in g_str[:50]]
+        s, rounds, c1, c2 = score_battle(best_gene, opp)
+        result = "WIN" if c2 == 0 else "LOSS" if c1 == 0 else "DRAW"
+        print(f"  {result} vs {name:<15} | rounds={rounds} mine={c1} opp={c2} score={s}/20")
 
 if __name__ == "__main__":
     main()

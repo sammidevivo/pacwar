@@ -213,19 +213,6 @@ def train_padawans():
             print(f"\n{p['name']} (from {p['base']})")
             print(f"  {''.join(str(g) for g in p['genome'])}")
     
-    print("\n" + "=" * 70)
-    print("SUMMARY BY BASE GENOME")
-    print("=" * 70)
-    
-    for base_name in base_genomes.keys():
-        base_padawans = [p for p in all_padawans if p['base'] == base_name]
-        avg_score = sum(p['total_score'] for p in base_padawans) / len(base_padawans)
-        best_score = max(p['total_score'] for p in base_padawans)
-        
-        print(f"{base_name:20s}: Avg={avg_score:.1f}/80, Best={best_score}/80")
-    
-    print("\n" + "=" * 70)
-    
     return all_padawans
 
 if __name__ == "__main__":

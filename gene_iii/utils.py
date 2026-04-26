@@ -1,4 +1,4 @@
-import sys, os
+﻿import sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 import _PyPacwar
@@ -7,7 +7,7 @@ import json
 
 GENOMES_FILE = os.path.join(os.path.dirname(__file__), 'genomes.json')
 
-# ── Genome helpers ────────────────────────────────────────────────────────────
+# -- Genome helpers ------------------------------------------------------------
 
 def random_genome():
     return [random.randint(0, 3) for _ in range(50)]
@@ -24,7 +24,7 @@ def genome_to_str(genome):
 def str_to_genome(s):
     return list(map(int, s))
 
-# ── Scoring ───────────────────────────────────────────────────────────────────
+# -- Scoring -------------------------------------------------------------------
 
 def score_battle(genome1, genome2):
     """Returns (score, rounds, c1, c2). Score is 0-20 per professor's system."""
@@ -55,7 +55,7 @@ def score_battle(genome1, genome2):
 def total_score_vs(genome, opponents):
     return sum(score_battle(genome, opp)[0] for opp in opponents)
 
-# ── Hill climber ──────────────────────────────────────────────────────────────
+# -- Hill climber --------------------------------------------------------------
 
 def hill_climb(start_genome, opponents, num_rounds=60, num_variants=30,
                num_mutations=3, verbose=True, label=""):
@@ -78,7 +78,7 @@ def hill_climb(start_genome, opponents, num_rounds=60, num_variants=30,
 
     return best, best_score
 
-# ── Genome registry ───────────────────────────────────────────────────────────
+# -- Genome registry -----------------------------------------------------------
 
 def load_genome_bank():
     """Returns list of (name, genome_list) from genomes.json."""

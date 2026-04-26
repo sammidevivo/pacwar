@@ -1,4 +1,4 @@
-"""
+﻿"""
 Hill-climbing evolution against the full genome bank + fresh random opponents.
 New bests are automatically saved to genomes.json.
 
@@ -16,7 +16,7 @@ from utils import (
     score_battle, total_score_vs, load_genome_bank, save_new_genome
 )
 
-# ── Parameters ────────────────────────────────────────────────────────────────
+# -- Parameters ----------------------------------------------------------------
 
 BASE_GENOME          = "01000100010001000103123323233213223333313313313313"   # genome string to start from, or None for random
 NUM_ROUNDS           = 1000
@@ -26,7 +26,7 @@ NUM_RANDOM_OPPONENTS = 20     # fresh random genomes added each round
 
 SAVE_PREFIX = "evolved"       # saved names will be e.g. "evolved_20250325_143021"
 
-# ── Main ──────────────────────────────────────────────────────────────────────
+# -- Main ----------------------------------------------------------------------
 
 def evolve():
     bank = load_genome_bank()
@@ -81,7 +81,7 @@ def evolve():
 
             if win_rate > 90:
                 name = f"{SAVE_PREFIX}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
-                print(f"Round {rnd+1:3d}: NEW BEST  {top_score}/{len(opponents)*20}  win={win_rate:.1f}%  mut={mutations}  → saving as '{name}'")
+                print(f"Round {rnd+1:3d}: NEW BEST  {top_score}/{len(opponents)*20}  win={win_rate:.1f}%  mut={mutations}  -> saving as '{name}'")
                 save_new_genome(name, all_time_best, tags=["evolved"])
             else:
                 print(f"Round {rnd+1:3d}: NEW BEST  {top_score}/{len(opponents)*20}  win={win_rate:.1f}%  mut={mutations}  (below 90%, not saved)")

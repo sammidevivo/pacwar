@@ -1,4 +1,4 @@
-import sys
+﻿import sys
 import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
@@ -7,9 +7,9 @@ import random
 import json
 
 
-# ─────────────────────────────────────────────
+# ---------------------------------------------
 #  Genome helpers
-# ─────────────────────────────────────────────
+# ---------------------------------------------
 
 def random_genome():
     return [random.randint(0, 3) for _ in range(50)]
@@ -31,9 +31,9 @@ def str_to_genome(s):
     return list(map(int, s))
 
 
-# ─────────────────────────────────────────────
+# ---------------------------------------------
 #  Scoring (professor's system)
-# ─────────────────────────────────────────────
+# ---------------------------------------------
 
 def score_battle(genome1, genome2):
     """
@@ -89,9 +89,9 @@ def total_score_vs(genome, opponents):
     return sum(score_battle(genome, opp)[0] for opp in opponents)
 
 
-# ─────────────────────────────────────────────
+# ---------------------------------------------
 #  Hill climber
-# ─────────────────────────────────────────────
+# ---------------------------------------------
 
 def hill_climb(
     start_genome,
@@ -133,9 +133,9 @@ def hill_climb(
     return best, best_score
 
 
-# ─────────────────────────────────────────────
+# ---------------------------------------------
 #  JSON save / load
-# ─────────────────────────────────────────────
+# ---------------------------------------------
 
 def save_results(path, data):
     """data: list of dicts with at least 'genome' (list) and 'score' (int/float)."""
@@ -147,7 +147,7 @@ def save_results(path, data):
         serializable.append(entry)
     with open(path, 'w') as f:
         json.dump(serializable, f, indent=2)
-    print(f"  Saved {len(serializable)} genomes → {path}")
+    print(f"  Saved {len(serializable)} genomes -> {path}")
 
 
 def load_results(path):

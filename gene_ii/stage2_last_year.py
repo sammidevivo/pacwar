@@ -1,4 +1,4 @@
-"""
+﻿"""
 Stage 2 — Last Year's Checkpoint
 =================================
 Loads Stage 1 survivors and hill-climbs each one against the 29 known genomes
@@ -20,12 +20,12 @@ from utils import (
     save_results, load_results, total_score_vs, str_to_genome
 )
 
-# ── Parameters ──────────────────────────────────────────────────────────────
+# -- Parameters --------------------------------------------------------------
 HILL_CLIMB_ROUNDS  = 100
 VARIANTS_PER_ROUND = 30
 NUM_MUTATIONS      = 3
 TOP_N_TO_SAVE      = 20     # how many to pass to Stage 3
-# ────────────────────────────────────────────────────────────────────────────
+# ----------------------------------------------------------------------------
 
 LAST_YEAR_GENOMES = {
     "HappyGene":      "03133000111120113033313121022122121313331131101131",
@@ -75,14 +75,14 @@ def build_opponent_list():
 
 def detailed_report(genome, opponents, names):
     print(f"  {'Opponent':<16}  {'Score':>5}  {'Result':<5}  Rounds  You  Them")
-    print(f"  {'─'*16}  {'─'*5}  {'─'*5}  {'─'*6}  {'─'*3}  {'─'*3}")
+    print(f"  {'-'*16}  {'-'*5}  {'-'*5}  {'-'*6}  {'-'*3}  {'-'*3}")
     total = 0
     for name, opp in zip(names, opponents):
         s, rounds, c1, c2 = score_battle(genome, opp)
         result = "WIN" if c1 > c2 else ("LOSS" if c2 > c1 else "TIE")
         print(f"  {name:<16}  {s:2d}/20  {result:<5}  {rounds:5d}  {c1:3d}  {c2:3d}")
         total += s
-    print(f"  {'─'*55}")
+    print(f"  {'-'*55}")
     print(f"  {'TOTAL':<16}  {total}/{len(opponents)*20}")
     return total
 
@@ -109,8 +109,8 @@ def main():
         genome = entry['genome']
         s1_score = entry.get('score_stage1', '?')
 
-        print(f"\n── Genome {idx+1}/{len(stage1)}  "
-              f"(Stage-1 score: {s1_score}/40) ──")
+        print(f"\n-- Genome {idx+1}/{len(stage1)}  "
+              f"(Stage-1 score: {s1_score}/40) --")
         print(f"  Starting genome: {genome_to_str(genome)}")
 
         # Quick initial score
@@ -127,7 +127,7 @@ def main():
             label=f"g{idx+1}",
         )
 
-        print(f"\n  ── Final detailed report ──")
+        print(f"\n  -- Final detailed report --")
         final_total = detailed_report(best, opponents, opp_names)
 
         results.append({
@@ -146,7 +146,7 @@ def main():
     print(f"STAGE 2 COMPLETE  ({elapsed:.1f}s)")
     print("=" * 65)
     print(f"\n{'Rank':>4}  {'S2 Score':>10}  {'S1 Score':>10}  Genome")
-    print(f"{'─'*4}  {'─'*10}  {'─'*10}  {'─'*50}")
+    print(f"{'-'*4}  {'-'*10}  {'-'*10}  {'-'*50}")
     for i, r in enumerate(results[:TOP_N_TO_SAVE], 1):
         print(f"{i:4d}  {r['score_stage2']:6d}/{max_score}  "
               f"{r['score_stage1']:6}/40  {genome_to_str(r['genome'])}")

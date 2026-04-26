@@ -147,7 +147,7 @@ def save_results(path, data):
         serializable.append(entry)
     with open(path, 'w') as f:
         json.dump(serializable, f, indent=2)
-    print(f"  Saved {len(serializable)} genomes → {path}")
+    print(f"  Saved {len(serializable)} genomes -> {path}")
 
 
 def load_results(path):

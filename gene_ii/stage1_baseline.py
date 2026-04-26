@@ -1,4 +1,4 @@
-"""
+﻿"""
 Stage 1 — Baseline Filter
 =========================
 Generate random genomes and hill-climb them until they score >= PASS_THRESHOLD
@@ -22,7 +22,7 @@ from utils import (
     genome_to_str, save_results, total_score_vs
 )
 
-# ── Parameters ──────────────────────────────────────────────────────────────
+# -- Parameters --------------------------------------------------------------
 TARGET_SURVIVORS   = 20      # how many passing genomes we want
 PASS_THRESHOLD     = 38      # out of 40  — must reach this to be a survivor
 RETRY_THRESHOLD    = 30      # if score >= this, keep trying extra passes
@@ -31,7 +31,7 @@ VARIANTS_PER_ROUND = 30      # mutations tested each round
 NUM_MUTATIONS      = 3       # genes changed per mutation
 MAX_ATTEMPTS       = 500     # safety cap on total candidates tried
 MAX_RETRY_PASSES   = 10      # max extra passes before giving up on a candidate
-# ────────────────────────────────────────────────────────────────────────────
+# ----------------------------------------------------------------------------
 
 OPPONENTS = [
     [1] * 50,   # All 1s
@@ -71,8 +71,8 @@ def main():
 
     while len(survivors) < TARGET_SURVIVORS and attempt < MAX_ATTEMPTS:
         attempt += 1
-        print(f"\n── Candidate #{attempt}  "
-              f"(survivors so far: {len(survivors)}/{TARGET_SURVIVORS}) ──")
+        print(f"\n-- Candidate #{attempt}  "
+              f"(survivors so far: {len(survivors)}/{TARGET_SURVIVORS}) --")
 
         seed = random_genome()
         seed_score = total_score_vs(seed, OPPONENTS)
@@ -140,7 +140,7 @@ def main():
 
     print("\nSurvivor Summary:")
     print(f"  {'#':>3}  {'Score':>7}  Genome")
-    print(f"  {'─'*3}  {'─'*7}  {'─'*50}")
+    print(f"  {'-'*3}  {'-'*7}  {'-'*50}")
     for i, s in enumerate(survivors, 1):
         print(f"  {i:3d}  {s['score_stage1']:4d}/40  {genome_to_str(s['genome'])}")
 

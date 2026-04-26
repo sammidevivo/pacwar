@@ -1,4 +1,4 @@
-"""
+﻿"""
 Genetic Algorithm — use this to discover new strong species from scratch.
 Hill climbing (evolve.py) is better for polishing; GA is better for exploring.
 
@@ -20,7 +20,7 @@ from utils import (
     score_battle, total_score_vs, load_genome_bank, save_new_genome
 )
 
-# ── Parameters ────────────────────────────────────────────────────────────────
+# -- Parameters ----------------------------------------------------------------
 
 POPULATION_SIZE      = 80
 GENERATIONS          = 100
@@ -31,7 +31,7 @@ NUM_RANDOM_OPPONENTS = 20   # fresh randoms added to opponent pool each generati
 
 SAVE_PREFIX = "ga"
 
-# ── GA operators ──────────────────────────────────────────────────────────────
+# -- GA operators --------------------------------------------------------------
 
 def tournament_select(population, scores):
     """Pick the best genome from a random sample of TOURNAMENT_SIZE."""
@@ -44,7 +44,7 @@ def crossover(parent1, parent2):
     point = random.randint(1, 48)
     return parent1[:point] + parent2[point:]
 
-# ── Main ──────────────────────────────────────────────────────────────────────
+# -- Main ----------------------------------------------------------------------
 
 def run_ga():
     bank  = load_genome_bank()
@@ -93,7 +93,7 @@ def run_ga():
         genome_str = genome_to_str(top_genome)
         if win_rate > 90 and genome_str not in saved_genomes:
             name = f"{SAVE_PREFIX}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
-            print(f"  → saving as '{name}'", end="")
+            print(f"  -> saving as '{name}'", end="")
             save_new_genome(name, top_genome, tags=["ga"])
             saved_genomes.add(genome_str)
 

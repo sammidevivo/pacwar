@@ -1,4 +1,4 @@
-"""
+﻿"""
 Test a genome against every entry in genomes.json plus N random opponents.
 
 Usage:
@@ -14,12 +14,12 @@ from utils import (
     score_battle, load_genome_bank
 )
 
-# ── Config ────────────────────────────────────────────────────────────────────
+# -- Config --------------------------------------------------------------------
 
 TEST_GENOME      = "01000000010100000033123323223213223233313313323311"
 NUM_RANDOM_TESTS = 10000
 
-# ── Main ──────────────────────────────────────────────────────────────────────
+# -- Main ----------------------------------------------------------------------
 
 def test(genome, num_random=10000):
     bank = load_genome_bank()

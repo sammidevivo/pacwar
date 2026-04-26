@@ -1,4 +1,4 @@
-"""
+﻿"""
 Train genomes from random seeds until they beat all 4 baselines (78+/80).
 Each survivor is automatically saved to genomes.json.
 
@@ -26,7 +26,7 @@ def save_to_padawans(name, genome, score):
         json.dump(data, f, indent=2)
     print(f"  Saved '{name}' to padawans.json")
 
-# ── Parameters ────────────────────────────────────────────────────────────────
+# -- Parameters ----------------------------------------------------------------
 
 NUM_TO_FIND   = 3      # stop after finding this many
 PASS_SCORE    = 78     # min score out of 80 to count
@@ -36,7 +36,7 @@ NUM_MUTATIONS = 3
 
 BASELINES = [[0]*50, [1]*50, [2]*50, [3]*50]
 
-# ── Main ──────────────────────────────────────────────────────────────────────
+# -- Main ----------------------------------------------------------------------
 
 def train():
     padawans = []
@@ -44,7 +44,7 @@ def train():
 
     print("=" * 60)
     print("PADAWAN TRAINING")
-    print(f"Goal   : {NUM_TO_FIND} genomes scoring ≥ {PASS_SCORE}/80")
+    print(f"Goal   : {NUM_TO_FIND} genomes scoring >= {PASS_SCORE}/80")
     print(f"Rounds : {NUM_ROUNDS}   Variants: {NUM_VARIANTS}   Mutations: {NUM_MUTATIONS}")
     print("=" * 60)
 

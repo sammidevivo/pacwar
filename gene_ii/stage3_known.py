@@ -1,4 +1,4 @@
-"""
+﻿"""
 Stage 3 — Known Genomes (test_genome.py pool)
 ==============================================
 Loads Stage 2 survivors and hill-climbs each one against the full set of
@@ -17,14 +17,14 @@ from utils import (
     save_results, load_results, total_score_vs
 )
 
-# ── Parameters ──────────────────────────────────────────────────────────────
+# -- Parameters --------------------------------------------------------------
 HILL_CLIMB_ROUNDS  = 120
 VARIANTS_PER_ROUND = 30
 NUM_MUTATIONS      = 3
 TOP_N_TO_SAVE      = 20
-# ────────────────────────────────────────────────────────────────────────────
+# ----------------------------------------------------------------------------
 
-# ── All known genomes from test_genome.py ───────────────────────────────────
+# -- All known genomes from test_genome.py -----------------------------------
 KNOWN_GENOMES = {
     # Padawans (original)
     "Padawan_I":   "32123003100022221333222332331322331223230133013310",
@@ -146,10 +146,10 @@ def detailed_report(genome, opponents, names):
         else:         ties.append(name)
 
     print(f"\n  {'Opponent':<18}  {'Sc':>4}  {'Res':<5}  Rnd   You  Them")
-    print(f"  {'─'*18}  {'─'*4}  {'─'*5}  {'─'*3}  {'─'*3}  {'─'*3}")
+    print(f"  {'-'*18}  {'-'*4}  {'-'*5}  {'-'*3}  {'-'*3}  {'-'*3}")
     for name, s, result, rounds, c1, c2 in rows:
         print(f"  {name:<18}  {s:2d}/20  {result:<5}  {rounds:3d}  {c1:3d}  {c2:3d}")
-    print(f"  {'─'*50}")
+    print(f"  {'-'*50}")
     print(f"  {'TOTAL':<18}  {total}/{max_score}")
     print(f"  W-L-T: {len(wins)}-{len(losses)}-{len(ties)}")
     if losses:
@@ -227,7 +227,7 @@ def main():
     print(f"STAGE 3 COMPLETE  ({elapsed:.1f}s)")
     print("=" * 65)
     print(f"\n{'Rank':>4}  {'S3 Score':>12}  {'W-L-T':<9}  Genome")
-    print(f"{'─'*4}  {'─'*12}  {'─'*9}  {'─'*50}")
+    print(f"{'-'*4}  {'-'*12}  {'-'*9}  {'-'*50}")
     for i, r in enumerate(results[:TOP_N_TO_SAVE], 1):
         wlt = f"{r['wins']}-{r['losses']}-{r['ties']}"
         print(f"{i:4d}  {r['score_stage3']:6d}/{max_score}  "
